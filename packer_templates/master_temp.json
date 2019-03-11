@@ -1,0 +1,51 @@
+{
+  "variables": {
+    "aws_access_key": "{{env `AWS_ACCESS_KEY`}}",
+    "aws_secret_key": "{{env `AWS_SECRET_KEY`}}",
+    "region": "{{env `AWS_REGION`}}"
+  },
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "access_key": "{{user `aws_access_key`}}",
+      "secret_key": "{{user `aws_secret_key`}}",
+      "region": "{{user `AWS_REGION`}}",
+      "name": "master-db",
+      "source_ami_filter": {
+        "filters": {
+          "virtualization-type": "hvm",
+          "name": "ubuntu/images/*ubuntu-xenial-16.04-amd64-server-*",
+          "root-device-type": "ebs"
+        },
+        "owners": [
+          "099720109477"
+        ],
+        "most_recent": true
+      },
+      "instance_type": "t2.micro",
+      "ssh_username": "ubuntu",
+      "ami_name": "master-db {{timestamp}}",
+      "ami_description": "An AMI for deploying a minimal App",
+      "tags": {
+        "role": "deployment",
+        "OS": "Linux Ubuntu",
+        "maintaner": "Ibraheem Idrees"
+      },
+      "run_tags": {
+        "role": "deployment",
+        "OS": "Linux Ubuntu",
+        "maintaner": "Ibraheem Idrees"
+      }
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "./",
+      "destination": "/tmp"
+    },
+    {
+      "type": "shell",
+      "script": "./db_config/master_script.sh"
+    }]
+}
