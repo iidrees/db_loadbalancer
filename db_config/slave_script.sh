@@ -9,8 +9,6 @@ function install_postgres {
   sudo apt-get update -y
 
   sudo apt-get install postgresql postgresql-contrib -y
-  # sudo apt-get update 
-  # sudo apt-get install postgresql-9.5 postgresql-contrib-9.5 -y
 }
 
 
