@@ -35,6 +35,7 @@ In order to create a machine image on AWS, please do the following:
 The `packer build` commands above would build two  `Amazon Machine Image`s where in the `master` database is configured with the script `db_config/master_script.sh` and the slave database is created with the script `db_config/slave_script.sh`.
   - **Note** that before you run the `packer` command above, ensure that you have AWS `Elastic IP` generated first and then associated with the `Master DB server` after launching the instance, there after in the `db_config/slave_script` file change `-h < ELastic IP `  to the `Master DB server` Elastic IP.
   Also, in the `db_config/pg_hba.conf` file, in the `replication` section where you would see these values `host     replication     replicauser     54.76.225.227/24        md5`, please leave the IP address section empty in or change it to `all`.
+  - Also in `line 124`  in the `db_config/recovery.conf` file, please replace the value assigned to the `host=< MASTER_DB_ELASTIC_IP >` with the Elatic IP address of the Master database, else the replication would not work as the slave databases would not be able to make any connection to the Master database.
 
 #### HAProxy
 
