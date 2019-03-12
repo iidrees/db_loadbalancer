@@ -40,13 +40,6 @@
   ],
   "provisioners": [
     {
-      "type": "shell",
-      "inline": [
-        "echo '******* Copy root dir from /tmp/ to ~/ *********'",
-        "sudo echo 'Nigga WHAT!'"
-      ]
-    },
-    {
       "type": "file",
       "source": "./",
       "destination": "/tmp"
